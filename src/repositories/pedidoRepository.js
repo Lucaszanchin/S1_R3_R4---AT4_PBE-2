@@ -28,8 +28,6 @@ const pedidoRepository = {
         }
     },
 
-
-
     listar: async () => {
         const sql = `SELECT p.id, p.ClienteId, p.SubTotal, p.Status, p.DataCad, i.id AS ItemId, i.ProdutoId, i.Quantidade, i.ValorItem FROM pedidos p LEFT JOIN itens_pedidos i ON p.id = i.pedidoId ORDER BY p.id`;
         const [rows] = await connection.execute(sql);
@@ -42,7 +40,7 @@ const pedidoRepository = {
         return rows;
     },
 
-    async atualizarPedido(pedido) {
+    async atualizarPedidoComItens(pedido, itens) {
         const conn = await connection.getConnection();
 
         try {
@@ -50,71 +48,60 @@ const pedidoRepository = {
 
             const pedidoId = pedido.id;
 
-            const [itensAtuais] = await conn.execute("SELECT * FROM itens_pedidos WHERE PedidoId = ?", [pedidoId]);
+            await conn.execute(`UPDATE pedidos SET clienteId = ?, subTotal = ?, status = ? WHERE id = ?`,
+                [pedido.clienteId, pedido.subTotal, pedido.status, pedidoId]
+            );
 
-            const itensEnviados = pedido.itens;
-
-            const mapaAtuais = new Map();
-            itensAtuais.forEach(item => {
-                mapaAtuais.set(item.Id, item);
-            });
-
-            const inserir = [];
-            const atualizar = [];
-            const excluir = [];
-
-            itensEnviados.forEach(item => {
-                if (item.id) {
-                    if (mapaAtuais.has(item.id)) {
-                        atualizar.push(item);
-                        mapaAtuais.delete(item.id);
-                    }
-                } else {
-                    inserir.push(item);
-                }
-            });
-
-            mapaAtuais.forEach(item => {
-                excluir.push(item);
-            });
-
-            for (const item of inserir) {
-                await conn.execute(`INSERT INTO itens_pedidos (PedidoId, ProdutoId, Quantidade, ValorItem) VALUES (?, ?, ?, ?)`,
-                    [pedidoId, item.produtoId, item.quantidade, item.valorItem]
-                );
-            }
-
-            for (const item of atualizar) {
-                await conn.execute(`UPDATE itens_pedidosSET ProdutoId = ?, Quantidade = ?, ValorItem = ? WHERE Id = ?`,
-                    [item.produtoId, item.quantidade, item.valorItem, item.id]);
-            }
-
-
-            for (const item of excluir) {
-                await conn.execute("DELETE FROM itens_pedidos WHERE Id = ?", [item.Id]
-                );
-            }
-
-            const [resultado] = await conn.execute(`SELECT SUM(Quantidade * ValorItem) AS total FROM itens_pedidos WHERE PedidoId = ?`,
+            const [itensAtuais] = await conn.execute(
+                "SELECT * FROM itens_pedidos WHERE PedidoId = ?",
                 [pedidoId]
             );
 
-            const total = resultado[0].total || 0;
+            const itensNovos = itens;
 
-            await conn.execute("UPDATE pedidos SET ValorTotal = ? WHERE Id = ?",
-                [total, pedidoId]
+            const idsNovos = itensNovos.filter(i => i.id).map(i => i.id);
+
+            for (let item of itensAtuais) {
+                if (!idsNovos.includes(item.Id)) {
+                    await conn.execute("DELETE FROM itens_pedidos WHERE Id = ?",
+                        [item.Id]
+                    );
+                }
+            }
+
+            for (let item of itensNovos) {
+
+                if (item.id) {
+                    await conn.execute(`UPDATE itens_pedidos SET ProdutoId = ?, Quantidade = ?, ValorItem = ? WHERE Id = ?`,
+                        [item.produtoId, item.quantidade, item.valorItem, item.id]
+                    );
+                } else {
+                    await conn.execute(`INSERT INTO itens_pedidos (PedidoId, ProdutoId, Quantidade, ValorItem) VALUES (?, ?, ?, ?)`,
+                        [pedidoId, item.produtoId, item.quantidade, item.valorItem]
+                    );
+                }
+            }
+
+            const [itensAtualizados] = await conn.execute("SELECT * FROM itens_pedidos WHERE PedidoId = ?",
+                [pedidoId]
+            );
+
+            const subtotal = itensAtualizados.reduce(
+                (total, item) => total + (item.ValorItem * item.Quantidade),
+                0
+            );
+
+            await conn.execute("UPDATE pedidos SET subTotal = ? WHERE id = ?",
+                [subtotal, pedidoId]
             );
 
             await conn.commit();
 
-            return {
-                sucesso: true,
-                total
-            };
+            return { sucesso: true };
 
-        } catch (erro) {
+        } catch (error) {
             await conn.rollback();
-            throw erro;
+            throw error;
         } finally {
             conn.release();
         }
@@ -145,52 +132,11 @@ const pedidoRepository = {
         }
     },
 
-
-    atualizarItem: async (item) => {
-        const conn = await connection.getConnection();
-
-        try {
-            await conn.execute(
-                "UPDATE itens_pedidos SET ProdutoId = ?, Quantidade = ?, ValorItem = ? WHERE id = ?",
-                [item.produtoId, item.quantidade, item.valorItem, item.id]
-            );
-
-        } finally {
-            conn.release();
-        }
-    },
-
     deletarItem: async (id) => {
         const conn = await connection.getConnection();
 
         try {
             await conn.execute("DELETE FROM itens_pedidos WHERE id = ?", [id]);
-
-        } finally {
-            conn.release();
-        }
-    },
-
-    recalcularSubtotal: async (pedidoId) => {
-        const conn = await connection.getConnection();
-
-        try {
-            const [rows] = await conn.execute(
-                "SELECT quantidade, valorItem FROM itens_pedidos WHERE pedidoId = ?",
-                [pedidoId]
-            );
-
-            const itens = rows.map(row =>
-                new ItensPedido(pedidoId, null, row.quantidade, row.valorItem, null)
-            );
-
-            const subTotal = ItensPedido.calcularSubTotal(itens);
-            await conn.execute(
-                "UPDATE pedidos SET subTotal = ? WHERE id = ?",
-                [subTotal, pedidoId]
-            );
-
-            return subTotal;
 
         } finally {
             conn.release();

@@ -10,7 +10,7 @@ const pedidoController = {
             let { clienteId, itens } = req.body;
 
             const itensPedido = itens.map(item =>
-                ItensPedido.criar({ produtoId: item.produtoId, quantidade: item.quantidade, valorItem: item.valorItem }))
+            ItensPedido.criar({ produtoId: item.produtoId, quantidade: item.quantidade, valorItem: item.valorItem }))
 
             const SubTotalItens = ItensPedido.calcularSubTotal(itensPedido);
             const pedido = Pedido.criar({ clienteId, subTotal: SubTotalItens, status: STATUS.ABERTO });
@@ -23,25 +23,6 @@ const pedidoController = {
             console.log(error);
 
             res.status(500).json({ sucesso: false, mensagem: error.message });
-        }
-    },
-
-    async adicionarItem(req, res) {
-        try {
-            const item = req.body;
-
-            if (!item.pedidoId || !item.produtoId || !item.quantidade || !item.valorItem) {
-                return res.status(400).json({sucesso: false, mensagem: "Dados do item inválidos"
-                });
-            }
-
-            const resultado = await pedidoRepository.adicionarItem(item);
-
-            return res.status(201).json({sucesso: true, mensagem: "Item adicionado com sucesso", total: resultado.total});
-
-        } catch (erro) {
-            return res.status(500).json({sucesso: false, mensagem: "Erro ao adicionar item", error: erro.message
-});
         }
     },
 
@@ -73,35 +54,33 @@ const pedidoController = {
     },
 
 
-    async atualizarPedido(req, res) {
+    async atualizar(req, res) {
         try {
-            const pedido = req.body;
+            const { id } = req.params;
+            const { clienteId, status, itens } = req.body;
 
-            if (!pedido.id) {
-                return res.status(400).json({ sucesso: false, mensagem: "Id do pedido é obrigatório" });
+            if (!id) {
+                return res.status(400).json({sucesso: false, mensagem: "ID do pedido é obrigatório"});
             }
 
-            if (!pedido.itens || !Array.isArray(pedido.itens)) {
-                return res.status(400).json({ sucesso: false, mensagem: "Itens do pedido são obrigatórios" });
-            }
+            const pedido = new Pedido(clienteId, 0, status, id);
 
-            for (const item of pedido.itens) {
-                if (!item.produtoId || !item.quantidade || !item.valorItem) {
-                    return res.status(400).json({ sucesso: false, mensagem: "Itens inválidos" });
-                }
-            }
+            const itensMapeados = itens.map(i =>
+                new ItensPedido(
+                    i.pedidoId || id,
+                    i.produtoId,
+                    i.quantidade,
+                    i.valorItem,
+                    i.id || null
+                )
+            );
 
-            const resultado = await pedidoRepository.atualizarPedido(pedido);
+            await pedidoRepository.atualizarPedidoComItens(pedido, itensMapeados);
 
-            return res.status(200).json({
-                sucesso: true, mensagem: "Pedido atualizado com sucesso", total: resultado.total
-            });
+            return res.json({sucesso: true, mensagem: "Pedido atualizado com sucesso"});
 
-        } catch (erro) {
-            console.error(erro);
-
-            return res.status(500).json({
-                sucesso: false, mensagem: "Erro no servidor", error: erro.message
+        } catch (error) {
+            return res.status(500).json({sucesso: false, mensagem: "Erro no servidor", error: error.message
             });
         }
     },
@@ -127,20 +106,12 @@ const pedidoController = {
 
             await pedidoRepository.deletarItem(id);
 
-            return res.status(200).json({
-                sucesso: true,
-                mensagem: "Item removido com sucesso"
-            });
+            return res.status(200).json({sucesso: true, mensagem: "Item removido com sucesso"});
 
         } catch (erro) {
-            return res.status(500).json({
-                sucesso: false,
-                mensagem: "Erro ao excluir item",
-                error: erro.message
-            });
+            return res.status(500).json({sucesso: false, mensagem: "Erro ao excluir item", error: erro.message});
         }
     }
-
 };
 
 export default pedidoController;
