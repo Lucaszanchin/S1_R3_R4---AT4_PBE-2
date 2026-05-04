@@ -1,0 +1,335 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: S1_R3_R4 - AT2_PBE 2
+meta:
+  id: wrk_e008489f72ca499a9ff75914171f9799
+  created: 1774888242480
+  modified: 1775475404843
+  description: ""
+collection:
+  - name: Categorias
+    meta:
+      id: fld_c3c9dcf3a15e4e8094fb29a39ca92fd8
+      created: 1774897484730
+      modified: 1774897484730
+      sortKey: -1774897484730
+      description: ""
+    children:
+      - url: http://localhost:8080/categorias/1
+        name: Deletar
+        meta:
+          id: req_7808649925844b6db8a2141f91a51e35
+          created: 1774888255119
+          modified: 1774897513905
+          isPrivate: false
+          description: ""
+          sortKey: -1774897506706
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/categorias
+        name: Editar
+        meta:
+          id: req_1db0a3c58e254822aa7d3a74a4312970
+          created: 1774888256839
+          modified: 1775473054376
+          isPrivate: false
+          description: ""
+          sortKey: -1774897506906
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Games",
+              "descricao": "Jogos Mídia Física"
+            }
+        parameters:
+          - name: id
+            value: "1"
+            description: ""
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/categorias
+        name: Inserir
+        meta:
+          id: req_89e65b9f40974d15b3e16ce9b269c41f
+          created: 1774888258426
+          modified: 1775474923394
+          isPrivate: false
+          description: ""
+          sortKey: -1774897506956
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Computadores",
+              "descricao": ""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/categorias
+        name: Selecionar
+        meta:
+          id: req_e81c11afa2cf4a29be463a91f6d4c10e
+          created: 1774888259845
+          modified: 1775473209748
+          isPrivate: false
+          description: ""
+          sortKey: -1775473169308
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.3.1
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/categorias/1
+        name: Selecionar Por ID
+        meta:
+          id: req_cdc058067dab44a9bfb680515e2906db
+          created: 1775473169208
+          modified: 1775473815536
+          isPrivate: false
+          description: ""
+          sortKey: -1775473169208
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Produtos
+    meta:
+      id: fld_df64cee3bcb64e33bff300c94f5d684e
+      created: 1774897525024
+      modified: 1774897525024
+      sortKey: -1774897525024
+      description: ""
+    children:
+      - url: http://localhost:8080/produtos/1
+        name: Excluir Produto
+        meta:
+          id: req_e46824f26f7a48a792c311d849c2dacf
+          created: 1774897528581
+          modified: 1775475359413
+          isPrivate: false
+          description: ""
+          sortKey: -1774897531386
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/produtos/1
+        name: Atualizar Produto
+        meta:
+          id: req_9c004747ce2946299a88d4de58dfb214
+          created: 1774897540527
+          modified: 1775474983956
+          isPrivate: false
+          description: ""
+          sortKey: -1774897540527
+        method: PUT
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: nome
+              value: Computador Dell
+            - name: valor
+              value: "4000"
+              description: ""
+              disabled: false
+            - name: idCategoria
+              value: "2"
+              description: ""
+              disabled: false
+            - name: image
+              value: ""
+              description: ""
+              disabled: false
+              fileName: C:\Users\49196614870\Pictures\images.jpg
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/produtos
+        name: Inserir Produto
+        meta:
+          id: req_54917cc288314672a378c10882502699
+          created: 1774897545102
+          modified: 1775474187699
+          isPrivate: false
+          description: ""
+          sortKey: -1774897545102
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: nome
+              value: Notebook Dell
+              description: ""
+              disabled: false
+            - name: valor
+              value: "3500.50"
+              description: ""
+              disabled: false
+            - name: idCategoria
+              value: "1"
+              description: ""
+              disabled: false
+            - name: image
+              value: ""
+              description: ""
+              disabled: false
+              fileName: C:\Users\49196614870\Downloads\images.jpg
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/produtos/1
+        name: Selecionar por ID
+        meta:
+          id: req_1d0938121ae346889db2721850ad55b9
+          created: 1774897548499
+          modified: 1775473235008
+          isPrivate: false
+          description: ""
+          sortKey: -1774897548499
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/produtos
+        name: Selecionar Todos
+        meta:
+          id: req_ba735c40d6654b1884888ec02888c848
+          created: 1774897550075
+          modified: 1775473189577
+          isPrivate: false
+          description: ""
+          sortKey: -1774897550075
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_e17b6ef75f8fa5495e3747ed8b1ed1beff99a409
+    created: 1774888242556
+    modified: 1774888242556
+environments:
+  name: Base Environment
+  meta:
+    id: env_e17b6ef75f8fa5495e3747ed8b1ed1beff99a409
+    created: 1774888242541
+    modified: 1774888242541
+    isPrivate: false

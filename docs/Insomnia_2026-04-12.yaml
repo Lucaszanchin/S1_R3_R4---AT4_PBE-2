@@ -1,0 +1,635 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Produtos, Categorias, Clientes e Telefones
+meta:
+  id: wrk_af1489d9364b4ff9a940ebd623d221ab
+  created: 1775428135324
+  modified: 1776027375692
+  description: ""
+collection:
+  - name: Categorias
+    meta:
+      id: fld_aa9ddbe004b8460b8f2852d56c06685e
+      created: 1775428159205
+      modified: 1775428159205
+      sortKey: -1775428159205
+      description: ""
+    children:
+      - url: http://localhost:8080/categorias/1
+        name: Deletar
+        meta:
+          id: req_59afa71e75e04c0ab99b35fc7bb304d1
+          created: 1775428181013
+          modified: 1775434424054
+          isPrivate: false
+          description: ""
+          sortKey: -1775428181013
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0-beta.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/categorias/1
+        name: Atualizar
+        meta:
+          id: req_d0e98605f62348969a8c4fa52e2c13a2
+          created: 1775428182887
+          modified: 1775434407886
+          isPrivate: false
+          description: ""
+          sortKey: -1775428182887
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome":"Eletrodomésticos"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0-beta.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/categorias
+        name: Inserir
+        meta:
+          id: req_bf6bef6f9ae145b4b3fb68b18d40ba6c
+          created: 1775428186828
+          modified: 1776039286362
+          isPrivate: false
+          description: ""
+          sortKey: -1775428186828
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome":"Comidas",
+            	"descricao":""
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0-beta.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/categorias
+        name: Selecionar Todos
+        meta:
+          id: req_6afd944eeb94427a8f8ebb43e4aca342
+          created: 1775428189019
+          modified: 1775434394339
+          isPrivate: false
+          description: ""
+          sortKey: -1775428189019
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.4.0-beta.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/categorias/2
+        name: Selecionar Por ID
+        meta:
+          id: req_4e071eaf175c4f2f902e1b3216003f84
+          created: 1775434481061
+          modified: 1776039250765
+          isPrivate: false
+          description: ""
+          sortKey: -1775428187923.5
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Produtos
+    meta:
+      id: fld_b15eccc071984d4196fcc638349a3567
+      created: 1775428167581
+      modified: 1775428167581
+      sortKey: -1775428167581
+      description: ""
+    children:
+      - url: http://localhost:8080/produtos/2
+        name: Deletar
+        meta:
+          id: req_bc39a8f3a6f943ccb36351aae2214e33
+          created: 1775428171395
+          modified: 1776040108363
+          isPrivate: false
+          description: ""
+          sortKey: -1775428173214
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0-beta.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/produtos/2
+        name: Atualizar
+        meta:
+          id: req_494b433a7637485c87f4edd7a32ed19d
+          created: 1775428176471
+          modified: 1776039800621
+          isPrivate: false
+          description: ""
+          sortKey: -1775428176471
+        method: PUT
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: nome
+              value: Macarrão
+              description: ""
+              disabled: false
+            - name: valor
+              value: "32.00"
+              description: ""
+              disabled: false
+            - name: idCategoria
+              value: "3"
+              description: ""
+              disabled: false
+            - name: image
+              value: ""
+              description: ""
+              disabled: false
+              fileName: C:\Users\Usuario\Downloads\tipos-de-macarrao-saiba-quais-sao-e-como-servir.jpg
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.4.0-beta.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/produtos
+        name: Inserir
+        meta:
+          id: req_66ab4658d8a0444687d658155b85f1de
+          created: 1775428177596
+          modified: 1776039355621
+          isPrivate: false
+          description: ""
+          sortKey: -1775428177596
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: nome
+              value: Macarrão
+              description: ""
+              disabled: false
+            - name: valor
+              value: "30.00"
+              description: ""
+              disabled: false
+            - name: idCategoria
+              value: "3"
+              description: ""
+              disabled: false
+            - name: image
+              value: ""
+              description: ""
+              disabled: false
+              multiline: true
+              fileName: C:\Users\Usuario\Downloads\tipos-de-macarrao-saiba-quais-sao-e-como-servir.jpg
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.4.0-beta.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/produtos
+        name: Selecionar Todos
+        meta:
+          id: req_769a709f5be147a69c69154964e731ab
+          created: 1775428178827
+          modified: 1775434427549
+          isPrivate: false
+          description: ""
+          sortKey: -1775428178827
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0-beta.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/produtos/2
+        name: Selecionar Por ID
+        meta:
+          id: req_5ad4dd020996441aaace6f4dcea4daf1
+          created: 1775434426105
+          modified: 1776039414499
+          isPrivate: false
+          description: ""
+          sortKey: -1775428178211.5
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Clientes
+    meta:
+      id: fld_ba0597ca3a8a4b5a99ea6ec7e328c8af
+      created: 1776027468222
+      modified: 1776027468222
+      sortKey: -1776027468222
+      description: ""
+    children:
+      - url: http://localhost:8080/clientes/5
+        name: Deletar Clientes
+        meta:
+          id: req_f1397110fca4454dab51c204dd642f87
+          created: 1776027472645
+          modified: 1776038989488
+          isPrivate: false
+          description: ""
+          sortKey: -1776027472645
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/clientes/1
+        name: Atualizar Clientes
+        meta:
+          id: req_53611a08460e44ffbbaa8776db4cc9a0
+          created: 1776027474673
+          modified: 1776028686878
+          isPrivate: false
+          description: ""
+          sortKey: -1776027474673
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Lucas",
+              "cpf": "12345678900",
+              "cidade": "Campinas",
+              "estado": "São Paulo",
+              "bairro": "Centro",
+              "uf": "SP",
+              "rua": "Rua A",
+              "numero": "123",
+              "complemento": "Apto 1",
+              "cep": "13000000"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/clientes
+        name: Inserir Clientes
+        meta:
+          id: req_127eab0c1f944b88aa99c67b130cc26b
+          created: 1776027476038
+          modified: 1776038280199
+          isPrivate: false
+          description: ""
+          sortKey: -1776027476038
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nome": "Messi Kovaslki",
+              "cpf": "12345678332",
+              "cidade": "Sumare",
+              "estado": "São Paulo",
+              "bairro": "Centro",
+              "uf": "SP",
+              "rua": "Rua 25 de MARÇO",
+              "numero": "123",
+              "complemento": "Apto 1",
+              "cep": "13000000"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/clientes/5
+        name: Selecionar Por ID
+        meta:
+          id: req_c7df15643c124fe4b6bf1474c8dfeed9
+          created: 1776027477245
+          modified: 1776038984837
+          isPrivate: false
+          description: ""
+          sortKey: -1776027477245
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/clientes
+        name: Selecionar Todos Clientes
+        meta:
+          id: req_0f11ebfff9084bd29f417c4a0bc419fc
+          created: 1776027481070
+          modified: 1776038981648
+          isPrivate: false
+          description: ""
+          sortKey: -1776027481070
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Telefones
+    meta:
+      id: fld_4801c67e992c4f50ab992d7a3ccef04d
+      created: 1776029157591
+      modified: 1776029157591
+      sortKey: -1776029157591
+      description: ""
+    children:
+      - url: http://localhost:8080/telefones/1
+        name: Excluir Telefone
+        meta:
+          id: req_4cc99e963581441aaef2385373d9f097
+          created: 1776029161224
+          modified: 1776039057864
+          isPrivate: false
+          description: ""
+          sortKey: -1776029161224
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/telefones/1
+        name: Atualizar Telefone
+        meta:
+          id: req_b8da45f652bb4ccb8d32bbefc1447303
+          created: 1776029162951
+          modified: 1776039048321
+          isPrivate: false
+          description: ""
+          sortKey: -1776029162951
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idCliente":"2",
+            	"numero":"19955997399"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/telefones
+        name: Inserir Telefone
+        meta:
+          id: req_7037645f844c479eb198cd0a9f1ffb8e
+          created: 1776029164107
+          modified: 1776039115442
+          isPrivate: false
+          description: ""
+          sortKey: -1776029164107
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idCliente":"7",
+            	"numero":"19999999999"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/telefones/2
+        name: Selecionar Por ID
+        meta:
+          id: req_1e8a0cfe97d448d1b31bd4b0d7c86e85
+          created: 1776029165296
+          modified: 1776039119918
+          isPrivate: false
+          description: ""
+          sortKey: -1776029165296
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/telefones
+        name: Selecionar Todos
+        meta:
+          id: req_d43ab4b1b6ed4400b7e99190be1b0b89
+          created: 1776029167741
+          modified: 1776039019996
+          isPrivate: false
+          description: ""
+          sortKey: -1776029167741
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_71e359ccf01de20585ef969e3cf19eeee099cf3c
+    created: 1775428135327
+    modified: 1775428135327
+environments:
+  name: Base Environment
+  meta:
+    id: env_71e359ccf01de20585ef969e3cf19eeee099cf3c
+    created: 1775428135325
+    modified: 1775428135325
+    isPrivate: false
